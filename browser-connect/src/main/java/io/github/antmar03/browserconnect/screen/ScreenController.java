@@ -25,7 +25,7 @@ public class ScreenController {
             produces = MediaType.IMAGE_JPEG_VALUE
     )
     @CrossOrigin
-    public @ResponseBody byte[] getImage(HttpServletResponse response) throws IOException {
+    public @ResponseBody byte[] getImage(HttpServletResponse response) {
         BufferedImage image = screenCaptureService.getLatestScreenshot();
 
         try {
@@ -34,9 +34,9 @@ public class ScreenController {
             return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(out.toByteArray()).getBody();
         } catch (IOException e) {
             e.printStackTrace();
+            return new byte[0];
         }
 
-        return new byte[0];
     }
 }
 
