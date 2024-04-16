@@ -14,7 +14,6 @@ public class ScreenCaptureService {
 
     private BufferedImage latestScreenshot;
 
-    @Autowired
     public ScreenCaptureService() {
         // Initialize latestScreenshot with an initial image
         latestScreenshot = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
