@@ -111,9 +111,16 @@ public class ControlsController {
     @GetMapping(value = "/mouse/click")
     @CrossOrigin
     public void clickMouse() throws AWTException {
-        System.out.println("click");
         Robot robot = new Robot();
         robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
         robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+    }
+
+    @GetMapping(value = "/mouse/rightclick")
+    @CrossOrigin
+    public void clickMouseRight() throws AWTException {
+        Robot robot = new Robot();
+        robot.mousePress(InputEvent.BUTTON3_DOWN_MASK);
+        robot.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
     }
 }

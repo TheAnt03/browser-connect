@@ -6,6 +6,7 @@ setInterval(async function(){
     const img = new Image();
     img.src = "http://" + host + ":8080/screen/getimage?time=" + new Date().getTime();
     img.id = "image";
+	img.oncontextmenu = "return false;";
 
     // Replace the existing image once the new one is fully loaded
     img.onload = function() {
@@ -15,6 +16,7 @@ setInterval(async function(){
             oldImg.parentNode.replaceChild(img, oldImg);
         } else {
             img.id = "image";
+			img.oncontextmenu = "return false;";
             document.body.appendChild(img);
         }
     }
@@ -23,10 +25,20 @@ setInterval(async function(){
 
 document.addEventListener("DOMContentLoaded", function() {
     const windowImage = document.getElementById('image');
+	
+	window.addEventListener('contextmenu', function(e) {e.stopPropagation();e.preventDefault();}, true); //disable context menu
 
     document.addEventListener("mousedown", function(event) {
         if (event.target.id === "image") {
-            fetch("http://" + host + ":8080/controls/mouse/click");
+			event.preventDefault();
+			switch(event.which) {
+				case 1:
+					fetch("http://" + host + ":8080/controls/mouse/click");
+					break;
+				case 3:
+					fetch("http://" + host + ":8080/controls/mouse/rightclick");
+					break;
+			}
         }
     });
     
