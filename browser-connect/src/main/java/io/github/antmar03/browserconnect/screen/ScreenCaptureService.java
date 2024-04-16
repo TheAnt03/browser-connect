@@ -12,7 +12,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @Service
 public class ScreenCaptureService {
 
-    private final Lock lock = new ReentrantLock();
     private BufferedImage latestScreenshot;
 
     @Autowired
@@ -29,10 +28,8 @@ public class ScreenCaptureService {
         try {
             Robot robot = new Robot();
             Rectangle capture = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
-            BufferedImage image = robot.createScreenCapture(capture);
-            lock.lock();
-            latestScreenshot = image;
-            lock.unlock();
+
+            latestScreenshot = robot.createScreenCapture(capture);
         } catch (AWTException e) {
             e.printStackTrace();
         }
